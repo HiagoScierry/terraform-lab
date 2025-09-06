@@ -1,4 +1,3 @@
-# ----- 1. Configuração do Provedor e Variáveis -----
 terraform {
   required_providers {
     aws = {
@@ -38,7 +37,7 @@ resource "aws_iam_role_policy_attachment" "lambda_basic_execution" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
-resource "aws_lambda_function" "lambda_by_terraform" {
+resource "aws_lambda_function" "lambda_simple_file_upload" {
   function_name = var.app_name
   role          = aws_iam_role.lambda_exec_role.arn
 
@@ -73,7 +72,7 @@ resource "aws_apigatewayv2_stage" "lambda_stage" {
 resource "aws_apigatewayv2_integration" "lambda_integration" {
   api_id           = aws_apigatewayv2_api.lambda_api.id
   integration_type = "AWS_PROXY"
-  integration_uri  = aws_lambda_function.lambda_by_terraform.invoke_arn
+  integration_uri  = aws_lambda_function.lambda_simple_file_upload.invoke_arn
 }
 
 resource "aws_apigatewayv2_route" "lambda_route" {
@@ -86,7 +85,7 @@ resource "aws_apigatewayv2_route" "lambda_route" {
 resource "aws_lambda_permission" "api_gw_permission" {
   statement_id  = "AllowAPIGatewayInvoke"
   action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.lambda_by_terraform.function_name
+  function_name = aws_lambda_function.lambda_simple_file_upload.function_name
   principal     = "apigateway.amazonaws.com"
 
   # Garante que a permissão se aplique a qualquer rota da nossa API
