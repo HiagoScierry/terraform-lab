@@ -101,8 +101,8 @@ resource "aws_instance" "web_server" {
   security_groups = [aws_security_group.web_sg.name]
 
   user_data = templatefile("${path.module}/user_data.sh", {
-    app_code          = file("${path.module}/../../app/index.js")
-    package_json_code = file("${path.module}/../../app/package.json")
+    app_code          = file("${path.module}/../../apps/simple_node_api/index.js")
+    package_json_code = file("${path.module}/../../apps/simple_node_api/package.json")
   })
 
   tags = {
