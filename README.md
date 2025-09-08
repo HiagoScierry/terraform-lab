@@ -1,106 +1,120 @@
-# Laboratório de Estudos Terraform na AWS
+# Terraform on AWS Study Lab
 
-![Terraform](https://img.shields.io/badge/Terraform-7B42BC?style=for-the-badge&logo=terraform&logoColor=white)
-![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white)
+This repository serves as a personal lab for learning and experimenting with [Terraform](https://www.terraform.io/) concepts applied to [Amazon Web Services (AWS)](https://aws.amazon.com/). The goal is to create reproducible and versionable Infrastructure as Code (IaC).
 
-Este repositório serve como um laboratório pessoal para aprender e experimentar os conceitos do [Terraform](https://www.terraform.io/) aplicados à [Amazon Web Services (AWS)](https://aws.amazon.com/). O objetivo é criar infraestruturas como código (IaC) de forma reprodutível e versionável.
+## 🎯 Objective
 
-## 🎯 Objetivo
+The main focus of this lab is to practically understand how to provision and manage different AWS services using Terraform's declarative syntax, covering everything from basic compute resources to serverless architectures.
 
-O foco principal deste laboratório é entender na prática como provisionar e gerenciar diferentes serviços da AWS utilizando a sintaxe declarativa do Terraform, cobrindo desde recursos de computação básicos até arquiteturas serverless.
+-----
 
----
+## 📂 Included Projects
 
-## 📂 Projetos Inclusos
+This repository is divided into directories, each containing an independent Terraform project focused on a specific service or concept.
 
-Este repositório está dividido em diretórios, cada um contendo um projeto Terraform independente e focado em um serviço ou conceito específico.
+### 1\. `ec2`
 
-### 1. `ec2`
-Este projeto provisiona uma instância EC2 (t2.micro para manter-se no Free Tier) e a pré-configura com um script de inicialização (`user_data`).
+This project provisions an EC2 instance (t2.micro to stay within the Free Tier) and pre-configures it with a startup script (`user_data`).
 
-* **Recursos criados:**
-    * Uma instância EC2 com Amazon Linux 2.
-    * Um Security Group que libera as portas 80 (HTTP) e 22 (SSH).
-    * Um script de inicialização que instala um servidor web Apache simples.
+  * **Resources created:**
 
-* **O que este projeto ensina:**
-    * Provisionamento de máquinas virtuais.
-    * Configuração de regras de firewall com Security Groups.
-    * Execução de scripts de automação na inicialização da instância.
-    * Uso de variáveis para customizar a infraestrutura (ex: `instance_type`).
+      * An EC2 instance with Amazon Linux 2.
+      * A Security Group that allows traffic on ports 80 (HTTP) and 22 (SSH).
+      * A startup script that installs a simple Apache web server.
 
-> **Nota:** A configuração de um domínio com Route53 e certificado SSL não foi incluída para evitar custos desnecessários em um ambiente de estudo.
+  * **What this project teaches:**
 
-### 2. `lambda_with_s3_upload`
-Demonstra a forma mais simples de provisionar uma função AWS Lambda, onde o código-fonte é empacotado em um arquivo `.zip` local.
+      * Provisioning virtual machines.
+      * Configuring firewall rules with Security Groups.
+      * Running automation scripts on instance startup.
+      * Using variables to customize the infrastructure (e.g., `instance_type`).
 
-* **Recursos criados:**
-    * Uma função AWS Lambda.
-    * Uma role do IAM com as permissões mínimas necessárias para a Lambda executar.
+> **Note:** A domain setup with Route53 and an SSL certificate was not included to avoid unnecessary costs in a study environment.
 
-* **O que este projeto ensina:**
-    * Provisionamento de recursos serverless.
-    * Gerenciamento de permissões com IAM (Identity and Access Management).
-    * O ciclo de vida de deployment de uma função Lambda simples.
+### 2\. `lambda_simple_upload`
 
-### 3. `lambda_with_s3_upload`
-Um exemplo mais avançado e mais próximo de um ambiente de produção. O código da função é primeiro enviado para um bucket S3 e depois referenciado pela Lambda.
+Demonstrates the simplest way to provision an AWS Lambda function, where the source code is packaged in a local `.zip` file.
 
-* **Recursos criados:**
-    * Um bucket S3 para armazenar o código-fonte.
-    * Um objeto S3 (o arquivo `.zip` da função).
-    * Uma função AWS Lambda que utiliza o objeto do S3 como fonte de seu código.
-    * Uma role do IAM.
+  * **Resources created:**
 
-* **O que este projeto ensina:**
-    * Provisionamento de armazenamento de objetos com S3.
-    * Desacoplamento do código e da infraestrutura da função.
-    * Como lidar com pacotes de deployment maiores, uma vez que o upload direto tem limitações de tamanho.
+      * An AWS Lambda function.
+      * An IAM role with the minimum necessary permissions for the Lambda to execute.
 
----
+  * **What this project teaches:**
 
-## 🚀 Como Usar
+      * Provisioning serverless resources.
+      * Managing permissions with IAM (Identity and Access Management).
+      * The deployment lifecycle of a simple Lambda function.
 
-### Pré-requisitos
-Antes de começar, garanta que você tenha as seguintes ferramentas instaladas e configuradas:
+### 3\. `lambda_with_s3_source`
 
-1.  **Terraform CLI:** [Instruções de instalação](https://learn.hashicorp.com/tutorials/terraform/install-cli)
-2.  **AWS CLI:** [Instruções de instalação](https://aws.amazon.com/cli/)
-3.  **Credenciais da AWS:** Suas credenciais devem estar configuradas para que o Terraform possa autenticar com sua conta. A forma mais comum é através do comando `aws configure`.
+A more advanced example that is closer to a production environment. The function's code is first uploaded to an S3 bucket and then referenced by the Lambda.
 
-### Executando os Projetos
-Cada projeto é autônomo. Para executar, siga os passos abaixo dentro do diretório de cada projeto (ex: `cd ec2/`):
+  * **Resources created:**
 
-1.  **Inicializar o Terraform:**
+      * An S3 bucket to store the source code.
+      * An S3 object (the function's `.zip` file).
+      * An AWS Lambda function that uses the S3 object as its code source.
+      * An IAM role.
+
+  * **What this project teaches:**
+
+      * Provisioning object storage with S3.
+      * Decoupling the function's code from its infrastructure.
+      * How to handle larger deployment packages, as direct uploads have size limitations.
+
+-----
+
+## 🚀 How to Use
+
+### Prerequisites
+
+Before you begin, ensure you have the following tools installed and configured:
+
+1.  **Terraform CLI:** [Installation instructions](https://learn.hashicorp.com/tutorials/terraform/install-cli)
+2.  **AWS CLI:** [Installation instructions](https://aws.amazon.com/cli/)
+3.  **AWS Credentials:** Your credentials must be configured so that Terraform can authenticate with your account. The most common way is through the `aws configure` command.
+
+### Running the Projects
+
+Each project is self-contained. To run one, follow the steps below inside the project's directory (e.g., `cd ec2/`):
+
+1.  **Initialize Terraform:**
+
     ```bash
     terraform init
     ```
 
-2.  **Planejar as mudanças:** (Passo opcional, mas recomendado para ver o que será criado)
+2.  **Plan the changes:** (Optional, but recommended to see what will be created)
+
     ```bash
     terraform plan
     ```
 
-3.  **Aplicar as mudanças:**
+3.  **Apply the changes:**
+
     ```bash
     terraform apply
     ```
-    Digite `yes` quando solicitado para confirmar a criação dos recursos.
 
-### 🧹 Limpando os Recursos
-**Importante:** Para evitar custos inesperados, sempre destrua a infraestrutura após concluir seus estudos.
+    Type `yes` when prompted to confirm the creation of the resources.
 
-1.  **Destruir os recursos:**
+### 🧹 Cleaning Up Resources
+
+**Important:** To avoid unexpected costs, always destroy the infrastructure after you have finished your studies.
+
+1.  **Destroy the resources:**
     ```bash
     terraform destroy
     ```
-    Digite `yes` quando solicitado para confirmar a exclusão.
+    Type `yes` when prompted to confirm the deletion.
 
----
+-----
 
-## ⚠️ Aviso sobre Custos
-A execução deste código criará recursos reais na sua conta AWS que **podem gerar custos**. Embora a maioria dos recursos selecionados se enquadre no Free Tier da AWS, o uso fora dos limites pode resultar em cobranças. Sempre execute `terraform destroy` quando não estiver mais usando a infraestrutura.
+## ⚠️ Cost Warning
 
-##  licença
+Running this code will create real resources in your AWS account that **may incur costs**. Although most of the selected resources fall under the AWS Free Tier, usage beyond the limits can result in charges. Always run `terraform destroy` when you are no longer using the infrastructure.
 
-Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
