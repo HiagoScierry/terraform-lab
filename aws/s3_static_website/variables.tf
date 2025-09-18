@@ -8,5 +8,5 @@ variable "bucket_name" {
   description = "O nome globalmente único para o bucket S3"
   type        = string
   # ATENÇÃO: Troque este valor!
-  default     = "meu-site-estatico-super-unico-12345" 
+  default     = "static-sites-terraform"
 }
