@@ -6,7 +6,7 @@ This repository serves as a personal lab for learning and experimenting with [Te
 
 The main focus of this lab is to practically understand how to provision and manage different AWS services using Terraform's declarative syntax, covering everything from basic compute resources to serverless architectures.
 
------
+---
 
 ## 📂 Included Projects
 
@@ -16,18 +16,18 @@ This repository is divided into directories, each containing an independent Terr
 
 This project provisions an EC2 instance (t2.micro to stay within the Free Tier) and pre-configures it with a startup script (`user_data`).
 
-  * **Resources created:**
+- **Resources created:**
 
-      * An EC2 instance with Amazon Linux 2.
-      * A Security Group that allows traffic on ports 80 (HTTP) and 22 (SSH).
-      * A startup script that installs a simple Apache web server.
+  - An EC2 instance with Amazon Linux 2.
+  - A Security Group that allows traffic on ports 80 (HTTP) and 22 (SSH).
+  - A startup script that installs a simple Apache web server.
 
-  * **What this project teaches:**
+- **What this project teaches:**
 
-      * Provisioning virtual machines.
-      * Configuring firewall rules with Security Groups.
-      * Running automation scripts on instance startup.
-      * Using variables to customize the infrastructure (e.g., `instance_type`).
+  - Provisioning virtual machines.
+  - Configuring firewall rules with Security Groups.
+  - Running automation scripts on instance startup.
+  - Using variables to customize the infrastructure (e.g., `instance_type`).
 
 > **Note:** A domain setup with Route53 and an SSL certificate was not included to avoid unnecessary costs in a study environment.
 
@@ -35,35 +35,53 @@ This project provisions an EC2 instance (t2.micro to stay within the Free Tier) 
 
 Demonstrates the simplest way to provision an AWS Lambda function, where the source code is packaged in a local `.zip` file.
 
-  * **Resources created:**
+- **Resources created:**
 
-      * An AWS Lambda function.
-      * An IAM role with the minimum necessary permissions for the Lambda to execute.
+  - An AWS Lambda function.
+  - An IAM role with the minimum necessary permissions for the Lambda to execute.
 
-  * **What this project teaches:**
+- **What this project teaches:**
 
-      * Provisioning serverless resources.
-      * Managing permissions with IAM (Identity and Access Management).
-      * The deployment lifecycle of a simple Lambda function.
+  - Provisioning serverless resources.
+  - Managing permissions with IAM (Identity and Access Management).
+  - The deployment lifecycle of a simple Lambda function.
 
 ### 3\. `lambda_with_s3_source`
 
 A more advanced example that is closer to a production environment. The function's code is first uploaded to an S3 bucket and then referenced by the Lambda.
 
-  * **Resources created:**
+- **Resources created:**
 
-      * An S3 bucket to store the source code.
-      * An S3 object (the function's `.zip` file).
-      * An AWS Lambda function that uses the S3 object as its code source.
-      * An IAM role.
+  - An S3 bucket to store the source code.
+  - An S3 object (the function's `.zip` file).
+  - An AWS Lambda function that uses the S3 object as its code source.
+  - An IAM role.
 
-  * **What this project teaches:**
+- **What this project teaches:**
 
-      * Provisioning object storage with S3.
-      * Decoupling the function's code from its infrastructure.
-      * How to handle larger deployment packages, as direct uploads have size limitations.
+  - Provisioning object storage with S3.
+  - Decoupling the function's code from its infrastructure.
+  - How to handle larger deployment packages, as direct uploads have size limitations.
 
------
+### 4\.`s3_static_website`
+
+This project provides infrastructure as code to deploy a static website using Amazon S3. It automates the creation and configuration of an S3 bucket to host static files, sets up appropriate permissions, and optionally configures static website hosting features such as custom error and index documents.
+
+- **Resources created:**
+
+    - Creates and configures an S3 bucket for static website hosting.
+    - Enables public access to static filesvia the S3 website endpoint.
+    - Allows you to specify custom index and error documents for your site.
+    - Applies a bucket policy to permit public read access to website content.
+    - Can be enhanced to support Route 53 and ACM for custom domains and HTTPS.
+
+- **What this project teaches:**
+
+    - Setting up object storage with S3 and configuring it for static website hosting.
+    - Applying bucket policies to control access to S3 content.
+    - How to extend basic setups with additional AWS services (e.g., Route 53, ACM) for production scenarios.
+
+---
 
 ## 🚀 How to Use
 
@@ -109,7 +127,7 @@ Each project is self-contained. To run one, follow the steps below inside the pr
     ```
     Type `yes` when prompted to confirm the deletion.
 
------
+---
 
 ## ⚠️ Cost Warning
 
